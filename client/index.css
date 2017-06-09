@@ -1,0 +1,48 @@
+html,
+body {
+  font-family: 'AmericanSans', sans-serif;
+  background-color: #f1f3f5;
+  margin: 0;
+  font-size: 13px;
+}
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  font-weight: 300;
+  color: #0078d2;
+  margin: 30px 0 20px;
+  font-size: 32px;
+  line-height: 44px;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #d0dae0;
+  margin: 32px 0;
+  padding: 0;
+}
+
+abbr {
+  text-decoration: none;
+}
+
+input[type=text] {
+  border: 0;
+  padding: 16px;
+  min-height: 40px;
+  background-color: white;
+  outline: 0;
+  width: 100%;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 2px #d0dae0;
+  transition: .2s;
+  border-radius: 1px;
+  -webkit-appearance: none;
+}
+.react-datepicker__input-container {
+  width: 100%;
+}

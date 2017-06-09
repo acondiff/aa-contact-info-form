@@ -1,0 +1,84 @@
+@font-face {
+  font-family:"AmericanSans";
+  src:url(./americansans-regular.eot);
+  src:url(./americansans-regular.eot?#iefix) format('eot'),
+      url(./americansans-regular.woff) format('woff'),
+      url(./americansans-regular.ttf) format('truetype'),
+      url(./americansans-regular.svg#FontAwesomeRegular) format('svg');
+  font-weight:normal;
+  font-style:normal
+}
+@font-face{
+  font-family:"AmericanSans";
+  src:url(./americansans-regularitalic.eot);
+  src:url(./americansans-regularitalic.eot?#iefix) format('eot'),
+  url(./americansans-regularitalic.woff) format('woff'),
+  url(./americansans-regularitalic.ttf) format('truetype'),
+  url(./americansans-regularitalic.svg#FontAwesomeRegular) format('svg');
+  font-weight:normal;
+  font-style:italic
+}
+@font-face {
+  font-family:"AmericanSans";
+  src:url(./americansans-bold.eot);
+  src:url(./americansans-bold.eot?#iefix) format('eot'),
+      url(./americansans-bold.woff) format('woff'),
+      url(./americansans-bold.ttf) format('truetype'),
+      url(./americansans-bold.svg#FontAwesomeRegular) format('svg');
+  font-weight:bold;
+  font-style:normal
+}
+@font-face {
+  font-family:"AmericanSans";
+  src:url(./americansans-bold_italic.eot);
+  src:url(./americansans-bold_italic.eot?#iefix) format('eot'),
+      url(./americansans-bold_italic.woff) format('woff'),
+      url(./americansans-bold_italic.ttf) format('truetype'),
+      url(./americansans-bold_italic.svg#FontAwesomeRegular) format('svg');
+  font-weight:bold;
+  font-style:italic
+}
+@font-face {
+  font-family:"AmericanSans";
+  src:url(./americansans-light.eot);
+  src:url(./americansans-light.eot?#iefix) format('eot'),
+      url(./americansans-light.woff) format('woff'),
+      url(./americansans-light.ttf) format('truetype'),
+      url(./americansans-light.svg#FontAwesomeRegular) format('svg');
+  font-weight:normal;
+  font-style:normal;
+  font-weight: 300;
+}
+@font-face {
+  font-family:"AmericanSans";
+  src:url(./americansans-light_italic.eot);
+  src:url(./americansans-light_italic.eot?#iefix) format('eot'),
+      url(./americansans-light_italic.woff) format('woff'),
+      url(./americansans-light_italic.ttf) format('truetype'),
+      url(./americansans-light_italic.svg#FontAwesomeRegular) format('svg');
+  font-weight:normal;
+  font-style:italic;
+  font-weight: 300;
+}
+@font-face {
+  font-family:"AmericanSansMedium";
+  src:url(./americansans-medium.eot);
+  src:url(./americansans-medium.eot?#iefix) format('eot'),
+      url(./americansans-medium.woff) format('woff'),
+      url(./americansans-medium.ttf) format('truetype'),
+      url(./americansans-medium.svg#FontAwesomeRegular) format('svg');
+  font-weight:normal;
+  font-style:normal;
+  font-weight: 500;
+}
+@font-face {
+  font-family:"AmericanSansMedium";
+  src:url(./americansans-medium_italic.eot);
+  src:url(./americansans-medium_italic.eot?#iefix) format('eot'),
+      url(./americansans-medium_italic.woff) format('woff'),
+      url(./americansans-medium_italic.ttf) format('truetype'),
+      url(./americansans-medium_italic.svg#FontAwesomeRegular) format('svg');
+  font-weight:normal;
+  font-style:italic;
+  font-weight: 500;
+}
