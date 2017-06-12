@@ -37,7 +37,6 @@ export default class ContactInfo extends React.Component {
 
   handleInputChange(event) {
     if(typeof event._d !== 'undefined') {
-      console.log(event, 'Hi');
       const value = event._d;
       this.setState({
         contact: Object.assign({}, this.state.contact, { bday: value })
@@ -247,9 +246,9 @@ export default class ContactInfo extends React.Component {
           id="comments"
           type="textarea"
           value={this.state.contact.comments}
+          limit={1500}
           placeholder="Please add comments here..."
           label="Comments"
-          description={"Characters remaining: 1500"}
           onChange={this.handleInputChange} />
         <hr />
         <div style={{

@@ -129,6 +129,13 @@ export default class Input extends React.Component {
             display: 'inherit',
             color: '#627f90'
         }}>{this.props.description}</span>)}
+        {this.props.limit && (
+          <span style={{
+            fontSize: '12px',
+            marginTop: '-12px',
+            display: 'inherit',
+            color: '#627f90'
+        }}>Characters remaining: {this.props.limit - this.props.value.length}</span>)}
       </div>
     )
   }
