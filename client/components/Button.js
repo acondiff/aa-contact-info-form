@@ -14,6 +14,7 @@ export default class Button extends React.Component {
           value={this.props.value}
           style={{
             display: 'inline-block',
+            fontFamily: '"AmericanSans", sans-serif',
             fontSize: this.props.size === 'large' ? '15px' : '12px',
             padding: this.props.size === 'large' ? '16px 32px' : '12px 16px',
             backgroundColor: (this.props.type === 'primary') ? '#0078d2' : (this.props.type === 'danger') ? '#d32027' : '#627f90',

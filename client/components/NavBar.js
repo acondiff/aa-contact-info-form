@@ -3,6 +3,7 @@ import Radium from 'radium';
 import { CSSTransitionGroup } from 'react-transition-group';
 
 import Button from './Button';
+import Icon from './Icon';
 
 import aaLogo from "../images/aa-logo.png";
 
@@ -308,14 +309,15 @@ export default class NavBar extends React.Component {
 
     return(
       <header style={{
-        backgroundColor: 'white',
+        backgroundColor: hoveringSubmenu() ? 'rgba(255,255,255,0.25)' : 'white',
         width: '100%',
         height: '165px',
-        boxShadow: '0 2px 2px #d0dae0',
+        boxShadow: hoveringSubmenu() ? '0 1px 1px rgba(208, 218, 224, .5)' : '0 2px 2px #d0dae0',
         alignItems: 'center',
         display: 'flex',
         flexDirection: 'column',
-        position: 'relative'
+        position: 'relative',
+        transition: '250ms'
       }}>
         <div style={{
           height: 36,
@@ -374,6 +376,9 @@ export default class NavBar extends React.Component {
                 }}>
                   <li style={navLiStyles}><a ref="language" style={navLinkStyles} href="#">English</a></li>
                   <li style={navLiStyles}><a ref="login" style={navLinkStyles} href="#">Login</a></li>
+                  <li style={navLiStyles}><a ref="apps" style={navLinkStyles}><Icon type="apps" size="12px" style={{ transform: 'scale(1.75) translateY(1px)' }} /></a></li>
+                  <li style={navLiStyles}><a ref="help" style={navLinkStyles}><Icon type="help-outline" size="12px" style={{ transform: 'scale(1.75) translateY(1px)' }} /></a></li>
+                  <li style={navLiStyles}><a ref="search" style={navLinkStyles}><Icon type="search" size="12px" style={{ transform: 'scale(1.75) translateY(1px)' }} /></a></li>
                 </ul>
               </nav>
               <div style={{

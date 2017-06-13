@@ -25,16 +25,23 @@ module.exports = {
         })
       },
       {
-          test: /\.(eot|svg|ttf|woff|woff2)$/,
-          loader: 'file-loader?name=fonts/[name].[ext]',
-          exclude: /client\/images/
-
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        loader: 'file-loader?name=fonts/[name].[ext]',
+        include: path.resolve('./client/fonts'),
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loader: 'url-loader?limit=200000',
-        exclude: /client\/fonts/
-    }
+        exclude: [/client\/fonts/, /client\/icons/]
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-sprite-loader',
+        include: path.resolve('./client/icons'),
+        options: {
+          spriteFilename: 'icon-sprite.svg'
+        }
+      }
     ]
   },
   plugins: [ htmlWebpackPluginConfig, new ExtractTextPlugin('styles.css') ]

@@ -5,6 +5,7 @@ import Table from './Table';
 import Row from './Row';
 import Column from './Column';
 import Button from './Button';
+import Icon from './Icon';
 
 import {nameTitles, nameSuffixes, usStates, seatClasses} from '../data';
 
