@@ -275,14 +275,16 @@ export default class NavBar extends React.Component {
     }
     const subnavLinkStyles = {
       display: 'inline-block',
-      padding: '8px 16px 8px 0',
+      width: '100%',
+      padding: '8px 8px',
       textDecoration: 'none',
       color: '#36495a',
       fontSize: 12,
       fontWeight: '500',
       transition: '.2s',
       ':hover': {
-        color: '#0078d2'
+        color: '#0078d2',
+        backgroundColor: '#f8f8f9'
       }
     }
     const centerWrap = {
@@ -348,7 +350,21 @@ export default class NavBar extends React.Component {
                   flex: 1
                 }}>
                   {nav.map((item, index) => (
-                    <li key={item.id} style={navLiStyles}><a ref={item.id} style={navLinkStyles} href="#">{item.label}</a></li>
+                    <li key={item.id} style={{display: 'inline-block'}}>
+                      <a ref={item.id} style={{
+                        display: 'inline-block',
+                        padding: '20px 16px 0 16px',
+                        textDecoration: 'none',
+                        color: (Radium.getState(this.state, item.id + 'Menu', ':hover')) ?'#0078d2':'#36495a',
+                        textTransform: 'uppercase',
+                        fontSize: 12,
+                        fontWeight: 'bold',
+                        transition: '.2s',
+                        ':hover': {
+                          color: '#0078d2'
+                        }
+                      }} href="#">{item.label}</a>
+                    </li>
                   ))}
                 </ul>
                 <ul style={{
@@ -365,23 +381,33 @@ export default class NavBar extends React.Component {
                 minHeight: 165 - 36,
                 transition: '250ms'
               }}>
+                    {nav.map((item, index) => (
                 <CSSTransitionGroup
                   transitionName="nav-submenu"
-                  transitionEnterTimeout={250}
-                  transitionLeaveTimeout={250} style={{display: 'block', width: '100%'}}>
-                  <div style={{width: '100%'}}>
-                    {nav.map((item, index) => (
-                      <div key={item.id + 'Menu'} style={{width: '100%'}}>
+                  transitionAppear={true}
+                  transitionAppearTimeout={500}
+                  transitionEnterTimeout={125}
+                  transitionLeaveTimeout={125} style={{display: 'block', width: '100%'}}>
                       {(Radium.getState(this.state, item.id, ':hover') || Radium.getState(this.state, item.id + 'Menu', ':hover')) ? (
                         <div ref={item.id + 'Menu'} className="nav-submenu" style={{
-                            width: '100%',
+                          width: '100%',
+                          display: 'flex',
                           ':hover': {}
                         }}>
+                          <div style={{
+                            width: '16.66%',
+                            margin: '24px 24px 24px 0',
+                            paddingRight: 24,
+                            borderRight: '1px solid #d0dae0',
+                            fontSize: 20,
+                            lineHeight: '26px',
+                            fontWeight: '300'
+                          }}>{item.description}</div>
                           <ul style={{
                             listStyle: 'none',
                             margin: 0,
                             padding: '16px 0',
-                            width: '100%'
+                            flex: '1'
                           }}>
                             {item.items.map((subitem, index) => (
                               <li key={item.id + '-' + subitem.id} style={[navLiStyles, {width: '20%'}]}><a ref={item.id + '-' + subitem.id} style={subnavLinkStyles} href="#">{subitem.label}</a></li>
@@ -389,10 +415,8 @@ export default class NavBar extends React.Component {
                           </ul>
                         </div>
                       ) : null}
-                      </div>
-                    ))}
-                  </div>
                 </CSSTransitionGroup>
+                    ))}
               </div>
             </div>
           </div>
@@ -406,7 +430,7 @@ export default class NavBar extends React.Component {
             transitionEnterTimeout={250}
             transitionLeaveTimeout={250}
             style={Object.assign(centerWrap, { display:'flex' })}>
-          {!hoveringSubmenu || true ? (
+          {!hoveringSubmenu() ? (
             <div style={{
                 display: 'flex',
                 flex: 1
@@ -450,7 +474,7 @@ export default class NavBar extends React.Component {
                 display: 'flex',
                 alignItems: 'center'
               }}>
-                <Button value="Right Button" />
+                <Button value="Right Button" position="right" />
               </div>
             </div>
           ) : ''}

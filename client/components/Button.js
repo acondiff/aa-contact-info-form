@@ -17,6 +17,7 @@ export default class Button extends React.Component {
             fontSize: this.props.size === 'large' ? '15px' : '12px',
             padding: this.props.size === 'large' ? '16px 32px' : '12px 16px',
             backgroundColor: (this.props.type === 'primary') ? '#0078d2' : (this.props.type === 'danger') ? '#d32027' : '#627f90',
+            margin: (this.props.position === 'center') ? '0 4px' : (this.props.position === 'right') ? '0 0 0 8px' : '0 8px 0 0',
             color: 'white',
             border: 0,
             borderRadius: 2,
