@@ -332,6 +332,7 @@ body {
   background-color: #f1f3f5;
   margin: 0;
   font-size: 13px;
+  color: #36495a;
 }
 * {
   box-sizing: border-box;
@@ -373,6 +374,63 @@ input[type=text] {
 }
 .react-datepicker__input-container {
   width: 100%;
+}
+
+
+.nav-submenu-enter,
+.nav-heading-enter {
+  opacity: 0.01;
+  /*transform: translateY(-100%);*/
+}
+
+.nav-submenu-enter.nav-submenu-enter-active,
+.nav-heading-enter.nav-heading-enter-active {
+  opacity: 1;
+  /*transform: translateY(0);*/
+  transition: 250ms ease-in;
+}
+
+.nav-submenu-leave,
+.nav-heading-leave {
+  opacity: 1;
+}
+
+.nav-submenu-leave.nav-submenu-leave-active,
+.nav-heading-leave.nav-heading-leave-active {
+  opacity: 0.01;
+  /*transform: translateY(100%);*/
+  transition: 250ms ease-in;
+}
+
+
+.nav-submenu {
+  transition: 125ms ease-in;
+  opacity: 1;
+}
+
+.nav-submenu-enter {
+  opacity: 0.01;
+  position: absolute;
+  visibility: hidden;
+  /*transform: translateY(-100%);*/
+}
+
+.nav-submenu-enter.nav-submenu-enter-active {
+  opacity: 0.01;
+  position: absolute;
+  visibility: hidden;
+  /*transform: translateY(0);*/
+  transition: 125ms ease-in;
+}
+
+.nav-submenu-leave {
+  opacity: 1;
+}
+
+.nav-submenu-leave.nav-submenu-leave-active {
+  opacity: 0.01;
+  /*transform: translateY(100%);*/
+  transition: 125ms ease-in;
 }
 @font-face {
   font-family:"AmericanSans";
