@@ -7,7 +7,6 @@ files.keys().forEach(files);
 export default class Icon extends React.Component {
 
   render() {
-    console.log(this.props.size);
     return(
       <svg
         className={ `ico ${ this.props.className }` }

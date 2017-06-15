@@ -1,262 +1,47 @@
 import React from 'react';
-import Radium from 'radium';
+import Radium, { Style } from 'radium';
 import { CSSTransitionGroup } from 'react-transition-group';
 
 import Button from './Button';
 import Icon from './Icon';
+import ContextMenu from './ContextMenu';
+import ContextMenuContent from './ContextMenuContent';
+import ContextMenuItem from './ContextMenuItem';
+import ContextMenuDivider from './ContextMenuDivider';
 
 import aaLogo from "../images/aa-logo.png";
+
+import nav from '../data/nav';
 
 @Radium
 export default class NavBar extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
+    this.state = {
+      submenu: null
+    }
+    this.showSubmenu = this.showSubmenu.bind(this);
+    this.showSubmenuWrap = this.showSubmenuWrap.bind(this);
   }
 
+  showSubmenu(name) {
+    this.setState({
+      submenu: (name === this.state.submenu) ? null : name
+    });
+  }
+
+  showSubmenuWrap() {
+    let isHoveringMenu = false;
+    for(let i in nav) {
+      let item = nav[i];
+      if(Radium.getState(this.state, item.id, ':hover') || Radium.getState(this.state, item.id+'Menu', ':hover')) {
+        isHoveringMenu = true;
+      }
+    }
+    return (isHoveringMenu || this.state.submenu);
+  }
 
   render() {
-
-    const nav = [
-      {
-        label: 'Plan Travel',
-        id: 'planTravel',
-        href: '',
-        description: 'Taking a trip? We have your travel plans covered.',
-        items: [
-          {
-            label: 'Flights',
-            id: 'flights',
-            href: ''
-          },
-          {
-            label: 'Hotels',
-            id: 'hotels',
-            href: ''
-          },
-          {
-            label: 'Cars',
-            id: 'cars',
-            href: ''
-          },
-          {
-            label: 'Activities',
-            id: 'activities',
-            href: ''
-          },
-          {
-            label: 'Vacations',
-            id: 'vacations',
-            href: ''
-          },
-          {
-            label: 'Cruise',
-            id: 'cruise',
-            href: ''
-          },
-          {
-            label: 'Book with miles',
-            id: 'bookWithMiles',
-            href: ''
-          },
-          {
-            label: 'Travel deals and offers',
-            id: 'travelDeals',
-            href: ''
-          },
-          {
-            label: 'Flight schedules and notifications',
-            id: 'flightSchedules',
-            href: ''
-          },
-          {
-            label: 'Where to fly',
-            id: 'whereToFly',
-            href: ''
-          },
-          {
-            label: 'Flight status',
-            id: 'flightStatus',
-            href: ''
-          },
-          {
-            label: 'Online check in',
-            id: 'onlineCheckIn',
-            href: ''
-          },
-          {
-            label: 'My trips',
-            id: 'myTrips',
-            href: ''
-          },
-          {
-            label: 'My account',
-            id: 'myAccount',
-            href: ''
-          },
-          {
-            label: 'Join AAdvantage Loyalty Program',
-            id: 'joinAAdvantage',
-            href: ''
-          }
-        ]
-      },
-      {
-        label: 'Travel Information',
-        id: 'Travel Information',
-        href: '',
-        description: 'Taking a vacation? Allow us to simplify your travels.',
-        items: [
-          {
-            label: 'At the airport',
-            id: 'atTheAirport',
-            href: ''
-          },
-          {
-            label: 'During your flight',
-            id: 'duringYourFlight',
-            href: ''
-          },
-          {
-            label: 'Mobile and app',
-            id: 'mobileAndApp',
-            href: ''
-          },
-          {
-            label: 'Planes',
-            id: 'planes',
-            href: ''
-          },
-          {
-            label: 'Lounges',
-            id: 'lounges',
-            href: ''
-          },
-          {
-            label: 'Baggage',
-            id: 'baggage',
-            href: ''
-          },
-          {
-            label: 'International travel',
-            id: 'international Travel',
-            href: ''
-          },
-          {
-            label: 'Special assistance',
-            id: 'specialAssistance',
-            href: ''
-          },
-          {
-            label: 'oneworld alliance',
-            id: 'oneworldAlliance',
-            href: ''
-          },
-          {
-            label: 'Flight status',
-            id: 'flightStatus',
-            href: ''
-          },
-          {
-            label: 'Online check in',
-            id: 'onlineCheckIn',
-            href: ''
-          },
-          {
-            label: 'My trips',
-            id: 'myTrips',
-            href: ''
-          },
-          {
-            label: 'My account',
-            id: 'myAccount',
-            href: ''
-          },
-          {
-            label: 'Join AAdvantage Loyalty Program',
-            id: 'joinAAdvantage',
-            href: ''
-          }
-        ]
-      },
-      {
-        label: 'AAdvantage',
-        id: 'AAdvantage',
-        href: '',
-        description: 'Traveling the world? Our loyalty program can get you there.',
-        items: [
-          {
-            label: 'AAdvantage',
-            id: 'AAdvantage',
-            href: ''
-          },
-          {
-            label: 'Elite status',
-            id: 'eliteStatus',
-            href: ''
-          },
-          {
-            label: 'Earn miles',
-            id: 'earnMiles',
-            href: ''
-          },
-          {
-            label: 'Redeem miles',
-            id: 'redeemMiles',
-            href: ''
-          },
-          {
-            label: 'Award travel',
-            id: 'awardTravel',
-            href: ''
-          },
-          {
-            label: 'Buy upgrades',
-            id: 'buyUpgrades',
-            href: ''
-          },
-          {
-            label: 'Bonus offers',
-            id: 'bonusOffers',
-            href: ''
-          },
-          {
-            label: 'Buy & Share Miles',
-            id: 'buyShareMiles',
-            href: ''
-          },
-          {
-            label: 'AAdvantage credit cards',
-            id: 'AAdvantageCreditCards',
-            href: ''
-          },
-          {
-            label: 'Flight status',
-            id: 'flightStatus',
-            href: ''
-          },
-          {
-            label: 'Online check in',
-            id: 'onlineCheckIn',
-            href: ''
-          },
-          {
-            label: 'My trips',
-            id: 'myTrips',
-            href: ''
-          },
-          {
-            label: 'My account',
-            id: 'myAccount',
-            href: ''
-          },
-          {
-            label: 'Join AAdvantage Loyalty Program',
-            id: 'joinAAdvantage',
-            href: ''
-          }
-        ]
-      }
-    ];
 
     const navLiStyles = {
       display: 'inline-block'
@@ -296,23 +81,12 @@ export default class NavBar extends React.Component {
       maxWidth: '1200px'
     }
 
-    let hoveringSubmenu = () => {
-      let isHovering = false;
-      for(let i in nav) {
-        let item = nav[i];
-        if(Radium.getState(this.state, item.id, ':hover') || Radium.getState(this.state, item.id+'Menu', ':hover')) {
-          isHovering = true;
-        }
-      }
-      return isHovering;
-    };
-
     return(
       <header style={{
-        backgroundColor: hoveringSubmenu() ? 'rgba(255,255,255,0.25)' : 'white',
+        backgroundColor: this.showSubmenuWrap() ? 'rgba(255,255,255,0.25)' : 'white',
         width: '100%',
         height: '165px',
-        boxShadow: hoveringSubmenu() ? '0 1px 1px rgba(208, 218, 224, .5)' : '0 2px 2px #d0dae0',
+        boxShadow: this.showSubmenuWrap() ? '0 1px 1px rgba(208, 218, 224, .5)' : '0 2px 2px #d0dae0',
         alignItems: 'center',
         display: 'flex',
         flexDirection: 'column',
@@ -320,7 +94,7 @@ export default class NavBar extends React.Component {
         transition: '250ms'
       }}>
         <div style={{
-          height: 36,
+          height: 35,
           width: '100%',
           position: 'relative'
         }}>
@@ -330,8 +104,8 @@ export default class NavBar extends React.Component {
             left: 0,
             zIndex: 5,
             backgroundColor: 'white',
-            minHeight: hoveringSubmenu() ? 165 : 0,
-            boxShadow: hoveringSubmenu() ? '0 2px 2px #d0dae0' : null,
+            minHeight: this.showSubmenuWrap() ? 165 : 0,
+            boxShadow: this.showSubmenuWrap() ? '0 2px 2px #d0dae0' : null,
             transition: '250ms'
           }}>
             <div style={[centerWrap, {
@@ -343,7 +117,8 @@ export default class NavBar extends React.Component {
                 marginLeft: '-16px',
                 display: 'flex',
                 zIndex: 10,
-                backgroundColor: 'white'
+                backgroundColor: 'white',
+                height: 35
               }}>
                 <ul style={{
                   listStyle: 'none',
@@ -374,26 +149,77 @@ export default class NavBar extends React.Component {
                   padding: 0,
                   margin: 0
                 }}>
-                  <li style={navLiStyles}><a ref="language" style={navLinkStyles} href="#">English</a></li>
-                  <li style={navLiStyles}><a ref="login" style={navLinkStyles} href="#">Login</a></li>
-                  <li style={navLiStyles}><a ref="apps" style={navLinkStyles}><Icon type="apps" size="12px" style={{ transform: 'scale(1.75) translateY(1px)' }} /></a></li>
-                  <li style={navLiStyles}><a ref="help" style={navLinkStyles}><Icon type="help-outline" size="12px" style={{ transform: 'scale(1.75) translateY(1px)' }} /></a></li>
-                  <li style={navLiStyles}><a ref="search" style={navLinkStyles}><Icon type="search" size="12px" style={{ transform: 'scale(1.75) translateY(1px)' }} /></a></li>
+                  <li style={navLiStyles}>
+                    <a ref="language" style={navLinkStyles} href="#">English</a>
+                  </li>
+                  <li style={navLiStyles}>
+                    <a ref="login" style={navLinkStyles} href="#">Login</a>
+                  </li>
+                  <li style={navLiStyles}>
+                    <ContextMenu>
+                      <a ref="apps" style={navLinkStyles} onClick={() => {}}>
+                        <Icon type="apps" size="12px" style={{ transform: 'scale(1.75) translateY(1px)' }} />
+                      </a>
+                      <ContextMenuContent>
+                        <ContextMenuItem
+                          disabled={false}
+                          label="Search"
+                          icon="search"
+                          onClick={() => this.showSubmenu('search')} />
+                        <ContextMenuItem
+                          disabled={false}
+                          label="Find a flight"
+                          icon="flight"
+                          onClick={() => this.showSubmenu('search')} />
+                        <ContextMenuItem
+                          disabled={false}
+                          label="Find a hotel"
+                          icon="hotel"
+                          onClick={() => this.showSubmenu('search')} />
+                        <ContextMenuDivider />
+                        <ContextMenuItem
+                          disabled={false}
+                          label="Get Help"
+                          icon="help-outline"
+                          onClick={() => this.showSubmenu('search')} />
+                        <ContextMenuItem
+                          disabled={false}
+                          label="Chat with us"
+                          icon="question-answer"
+                          onClick={() => this.showSubmenu('search')} />
+                      </ContextMenuContent>
+                    </ContextMenu>
+                  </li>
+                  <li style={navLiStyles}>
+                    <a ref="help" style={navLinkStyles} onClick={() => this.showSubmenu('help')}>
+                      <Icon type="help-outline" size="12px" style={{ transform: 'scale(1.75) translateY(1px)' }} />
+                    </a>
+                  </li>
+                  <li style={navLiStyles}>
+                    <a
+                      ref="search"
+                      style={[navLinkStyles, {
+                        color: this.state.submenu === 'search' && '#0078d2'
+                      }]}
+                      onClick={() => this.showSubmenu('search')}>
+                      <Icon type="search" size="12px" style={{ transform: 'scale(1.75) translateY(1px)' }} />
+                    </a>
+                  </li>
                 </ul>
               </nav>
               <div style={{
-                marginTop: hoveringSubmenu() ? 0 : '-165px',
+                marginTop: this.showSubmenuWrap() ? 0 : '-165px',
                 minHeight: 165 - 36,
                 transition: '250ms'
               }}>
-                    {nav.map((item, index) => (
-                <CSSTransitionGroup
-                  transitionName="nav-submenu"
-                  transitionAppear={true}
-                  transitionAppearTimeout={500}
-                  transitionEnterTimeout={125}
-                  transitionLeaveTimeout={125} style={{display: 'block', width: '100%'}}>
-                      {(Radium.getState(this.state, item.id, ':hover') || Radium.getState(this.state, item.id + 'Menu', ':hover')) ? (
+                  <CSSTransitionGroup
+                    transitionName="nav-submenu"
+                    transitionAppear={true}
+                    transitionAppearTimeout={500}
+                    transitionEnterTimeout={125}
+                    transitionLeaveTimeout={125} style={{display: 'block', width: '100%'}}>
+                    {nav.map((item, index) => {
+                      return (Radium.getState(this.state, item.id, ':hover') || Radium.getState(this.state, item.id + 'Menu', ':hover')) ? (
                         <div ref={item.id + 'Menu'} className="nav-submenu" style={{
                           width: '100%',
                           display: 'flex',
@@ -419,9 +245,72 @@ export default class NavBar extends React.Component {
                             ))}
                           </ul>
                         </div>
-                      ) : null}
-                </CSSTransitionGroup>
-                    ))}
+                      ) : null;
+                  })}
+                  {this.state.submenu === 'search' && (
+                    <div ref={'searchMenu'} className="nav-submenu" style={{
+                      width: '100%',
+                      display: 'flex',
+                      ':hover': {}
+                    }}>
+                      <div style={{
+                        position: 'relative',
+                        display: 'flex',
+                        width: '100%'
+                      }}>
+                        <div style={{
+                          paddingRight: 24,
+                          marginTop: 40,
+                          marginBottom: 40,
+                          display: 'flex',
+                          alignItems: 'center',
+                          boxSizing: 'content-box',
+                          borderRight: '1px solid #d0dae0'
+                        }}>
+                          <Icon type="search" size="40px" color="#627f90" />
+                        </div>
+                        <Style scopeSelector='*' rules={{
+                            '::-webkit-input-placeholder': {
+                                color: '#cad3d9'
+                            },
+                            ':-moz-placeholder': {
+                                color: '#cad3d9'
+                            },
+                           '::-moz-placeholder': {
+                                color: '#cad3d9'
+                            },
+                            ':-ms-input-placeholder': {
+                                color: '#cad3d9'
+                            }
+                        }} />
+                        <input
+                          type="text"
+                          placeholder="Search AA.com, find flights, or get help..."
+                          style={{
+                            padding: '40px 32px 40px 32px',
+                            fontSize: 32,
+                            boxShadow: '0 0 0 transparent',
+                            backgroundColor: 'transparent',
+                            lineHeight: '44px',
+                            margin: 0,
+                            fontFamily: '"AmericanSans", sans-serif',
+                            fontWeight: 300,
+                            color: '#36495a'
+                          }} />
+                          <div style={{
+                            paddingLeft: 24,
+                            marginTop: 40,
+                            marginBottom: 40,
+                            display: 'flex',
+                            alignItems: 'center',
+                            boxSizing: 'content-box',
+                          }} onClick={() => this.showSubmenu('search')}>
+                            <Icon type="close" size="40px" color="#627f90" />
+                          </div>
+                      </div>
+                    </div>
+                  )}
+                  </CSSTransitionGroup>
               </div>
             </div>
           </div>
@@ -435,7 +324,7 @@ export default class NavBar extends React.Component {
             transitionEnterTimeout={250}
             transitionLeaveTimeout={250}
             style={Object.assign(centerWrap, { display:'flex' })}>
-          {!hoveringSubmenu() ? (
+          {!this.showSubmenuWrap() ? (
             <div style={{
                 display: 'flex',
                 flex: 1
