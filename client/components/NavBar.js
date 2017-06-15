@@ -18,10 +18,86 @@ export default class NavBar extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      submenu: null
+      submenu: null,
+      scrollTop: 0,
+      navPosition: 'absolute',
+      navTop: 0,
+      scrollingDown: true,
+      navCondensed: false,
+      scrollNoAnimate: true
     }
     this.showSubmenu = this.showSubmenu.bind(this);
     this.showSubmenuWrap = this.showSubmenuWrap.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll(event) {
+    let scrollTop = event.srcElement.body.scrollTop,
+        itemTranslate = Math.min(0, scrollTop/3 - 60),
+        scrollingDown = (this.state.scrollTop < scrollTop) ? true : false;
+
+    if(!scrollingDown && this.state.scrollingDown || scrollingDown && !this.state.scrollingDown) {
+      console.log(scrollTop);
+    }
+
+    if(scrollTop > 35 && scrollingDown) {
+      this.setState({
+        navPosition: 'fixed',
+        navTop: -35,
+        navCondensed: true
+      });
+    } else if(scrollTop > 35 && !scrollingDown) {
+      this.setState({
+        navPosition: 'fixed',
+        navTop: 0,
+        navCondensed: false
+      });
+    } else if (scrollTop <= 35 && this.state.navCondensed) {
+      this.setState({
+        navPosition: 'fixed',
+        navTop: 0,
+        navCondensed: false
+      });
+    } else if(scrollTop <= 35 && !this.state.navCondensed && !scrollingDown) {
+      if(scrollTop === 0) {
+        this.setState({
+          navPosition: 'absolute',
+          navTop: 0,
+          navCondensed: false
+        });
+      } else {
+        this.setState({
+          navPosition: 'fixed',
+          navTop: 0,
+          navCondensed: false
+        });
+      }
+    }
+
+    if(this.state.scrollTop === 0) {
+      this.setState({
+        scrollNoAnimate: true
+      });
+    } else if (this.state.scrollTop > 35 && this.state.scrollNoAnimate) {
+      this.setState({
+        scrollNoAnimate: false
+      });
+    }
+
+    this.setState({
+      scrollTop,
+      scrollingDown
+    }, (newVal, oldVal) => {
+
+    });
   }
 
   showSubmenu(name) {
@@ -85,16 +161,22 @@ export default class NavBar extends React.Component {
       <header style={{
         backgroundColor: this.showSubmenuWrap() ? 'rgba(255,255,255,0.25)' : 'white',
         width: '100%',
-        height: '165px',
+        height: this.state.navCondensed ? '115px' : '165px',
         boxShadow: this.showSubmenuWrap() ? '0 1px 1px rgba(208, 218, 224, .5)' : '0 2px 2px #d0dae0',
         alignItems: 'center',
         display: 'flex',
         flexDirection: 'column',
-        position: 'relative',
-        transition: '250ms'
+        position: this.state.navPosition,
+        top: this.state.navTop,
+        left: 0,
+        zIndex: 100,
+        transition: (this.state.scrollNoAnimate && this.state.scrollingDown) ?
+          'top 0ms, background-color 250ms, height 250ms, box-shadow 250ms' : '250ms'
       }}>
+        <Style rules={{ 'body': {paddingTop: 165}}} />
         <div style={{
           height: 35,
+          minHeight: 35,
           width: '100%',
           position: 'relative'
         }}>
@@ -124,7 +206,9 @@ export default class NavBar extends React.Component {
                   listStyle: 'none',
                   padding: 0,
                   margin: 0,
-                  flex: 1
+                  flex: '1',
+                  opacity: this.state.navCondensed ? 0 : 1,
+                  transition: '250ms'
                 }}>
                   {nav.map((item, index) => (
                     <li key={item.id} style={{display: 'inline-block'}}>
@@ -147,7 +231,9 @@ export default class NavBar extends React.Component {
                 <ul style={{
                   listStyle: 'none',
                   padding: 0,
-                  margin: 0
+                  margin: 0,
+                  opacity: this.state.navCondensed ? 0 : 1,
+                  transition: '250ms'
                 }}>
                   <li style={navLiStyles}>
                     <a ref="language" style={navLinkStyles} href="#">English</a>
@@ -321,8 +407,9 @@ export default class NavBar extends React.Component {
           </div>
         </div>
         <div style={{
-          flex: 1,
-          width: '100%'
+          flex: '1',
+          width: '100%',
+          height: 'auto'
         }}>
           <CSSTransitionGroup
             transitionName="nav-heading"
@@ -332,18 +419,18 @@ export default class NavBar extends React.Component {
           {!this.showSubmenuWrap() ? (
             <div style={{
                 display: 'flex',
-                flex: 1
+                flex: '1'
             }}>
               <div style={{
                 display: 'flex',
                 width: '60%',
                 alignItems: 'center',
-                flex: 1
+                flex: '1'
               }}>
                 <div style={{
                   display: 'inline-block',
-                  width: 45,
-                  height: 40,
+                  width: this.state.navCondensed ? 36 : 45,
+                  height: this.state.navCondensed ? 32 : 40,
                   paddingRight: 24,
                   marginRight: 24,
                   boxSizing: 'content-box',
@@ -352,21 +439,25 @@ export default class NavBar extends React.Component {
                   transition: '.25s',
                   position: 'relative',
                   ':hover': {
-                    width: 264
+                    width: this.state.navCondensed ? 208 : 264
                   }
                 }}>
                   <img
                     src={aaLogo}
                     style={{
-                      height: 40,
+                      height: this.state.navCondensed ? 32 : 40,
                       position: 'absolute',
                       top: 0,
-                      right: 24
+                      right: 24,
+                      transition: '.25s'
                     }} />
                 </div>
                 <h1 style={{
                   margin: 0,
                   display: 'inline-block',
+                  fontSize: this.state.navCondensed ? '24px' : '32px',
+                  lineHeight: this.state.navCondensed ? '32px' : '44px',
+                  transition: '250ms'
                 }}>Contact Information</h1>
               </div>
               <div style={{
