@@ -24,7 +24,7 @@ export default class ContextMenuContent extends React.Component {
     return(
         <div className="context-menu-content" style={{
           position: 'absolute',
-          top: '100%',
+          top: 'calc(100% + 8px)',
           right: 0,
           width: 240,
           backgroundColor: '#f8f8f9',

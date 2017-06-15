@@ -173,6 +173,11 @@ export default class NavBar extends React.Component {
                           onClick={() => this.showSubmenu('search')} />
                         <ContextMenuItem
                           disabled={false}
+                          label="Find a rental"
+                          icon="car"
+                          onClick={() => this.showSubmenu('search')} />
+                        <ContextMenuItem
+                          disabled={false}
                           label="Find a hotel"
                           icon="hotel"
                           onClick={() => this.showSubmenu('search')} />

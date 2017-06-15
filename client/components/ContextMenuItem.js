@@ -14,7 +14,10 @@ export default class ContextMenuItem extends React.Component {
       <div onClick={this.props.onClick} style={{
         padding: '8px 16px',
         lineHeight: '20px',
+        textTransform: 'uppercase',
+        letterSpacing: '.25px',
         transition: '250ms',
+        cursor: 'pointer',
         ':hover': {
           color: '#0078d2'
         }
