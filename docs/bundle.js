@@ -12782,6 +12782,7 @@ var Button = (0, _radium2.default)(_class = function (_React$Component) {
           {
             type: this.props.submit ? 'submit' : 'button',
             value: this.props.value,
+            onClick: this.props.onClick,
             style: {
               display: 'inline-block',
               fontFamily: '"AmericanSans", sans-serif',
@@ -29389,7 +29390,7 @@ var ContactInfo = function (_React$Component) {
               onChange: this.handleInputChange })
           )
         ),
-        _react2.default.createElement(_Button2.default, { type: 'danger', value: 'Delete section', onClick: 'handleCancelClick' }),
+        _react2.default.createElement(_Button2.default, { type: 'danger', value: 'Delete section' }),
         _react2.default.createElement(_Button2.default, { type: 'secondary', value: 'Add section' }),
         _react2.default.createElement('hr', null),
         _react2.default.createElement(
@@ -29411,7 +29412,7 @@ var ContactInfo = function (_React$Component) {
           { style: {
               textAlign: 'right'
             } },
-          _react2.default.createElement(_Button2.default, { type: 'secondary', size: 'large', value: 'Cancel', onClick: 'handleCancelClick' }),
+          _react2.default.createElement(_Button2.default, { type: 'secondary', size: 'large', value: 'Cancel' }),
           _react2.default.createElement(_Button2.default, { type: 'primary', size: 'large', submit: true, value: 'Submit' })
         ),
         _react2.default.createElement(
@@ -29488,9 +29489,9 @@ var Content = (0, _radium2.default)(_class = function (_React$Component) {
         'div',
         { style: {
             margin: '30px auto',
-            padding: 15,
+            padding: '16px 32px',
             width: '100%',
-            maxWidth: '1200px'
+            maxWidth: '1264px'
           } },
         _react2.default.createElement(_ContactInfo2.default, null)
       );
@@ -29931,6 +29932,7 @@ var NavBar = (0, _radium2.default)(_class = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this, props));
 
     _this.state = {
+      title: 'Contact information',
       submenu: null,
       scrollTop: 0,
       navPosition: 'absolute',
@@ -29939,6 +29941,7 @@ var NavBar = (0, _radium2.default)(_class = function (_React$Component) {
       navCondensed: false,
       scrollNoAnimate: true
     };
+    _this.handleTitleChange = _this.handleTitleChange.bind(_this);
     _this.showSubmenu = _this.showSubmenu.bind(_this);
     _this.showSubmenuWrap = _this.showSubmenuWrap.bind(_this);
     _this.handleScroll = _this.handleScroll.bind(_this);
@@ -29954,6 +29957,14 @@ var NavBar = (0, _radium2.default)(_class = function (_React$Component) {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       window.removeEventListener('scroll', this.handleScroll);
+    }
+  }, {
+    key: 'handleTitleChange',
+    value: function handleTitleChange() {
+      console.log('title changing');
+      this.setState({
+        title: this.state.title === 'Contact information' ? 'Find a flight' : 'Contact information'
+      });
     }
   }, {
     key: 'handleScroll',
@@ -30071,10 +30082,10 @@ var NavBar = (0, _radium2.default)(_class = function (_React$Component) {
       };
       var centerWrap = {
         margin: '0 auto',
-        padding: '0 15px',
+        padding: '0 32px',
         width: '100%',
         height: '100%',
-        maxWidth: '1200px'
+        maxWidth: '1264px'
       };
 
       return _react2.default.createElement(
@@ -30422,13 +30433,14 @@ var NavBar = (0, _radium2.default)(_class = function (_React$Component) {
               height: 'auto'
             } },
           _react2.default.createElement(
-            _reactTransitionGroup.CSSTransitionGroup,
+            'div',
             {
-              transitionName: 'nav-heading',
-              transitionEnterTimeout: 250,
-              transitionLeaveTimeout: 250,
-              style: Object.assign(centerWrap, { display: 'flex' }) },
-            !this.showSubmenuWrap() ? _react2.default.createElement(
+              style: Object.assign({}, centerWrap, {
+                display: 'flex',
+                opacity: this.showSubmenuWrap() ? 0 : 1,
+                transition: '250ms'
+              }) },
+            _react2.default.createElement(
               'div',
               { style: {
                   display: 'flex',
@@ -30469,16 +30481,60 @@ var NavBar = (0, _radium2.default)(_class = function (_React$Component) {
                       transition: '.25s'
                     } })
                 ),
+                _react2.default.createElement(_radium.Style, { rules: {
+                    '.nav-title-enter': {
+                      opacity: 0,
+                      transform: 'translateY(-100%)',
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: 'auto'
+                    },
+                    '.nav-title-enter.nav-title-enter-active': {
+                      opacity: 1,
+                      transform: 'translateY(0)',
+                      transition: '250ms'
+                    },
+                    '.nav-title-leave': {
+                      opacity: 1,
+                      transform: 'translateY(0)',
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: 'auto'
+                    },
+                    '.nav-title-leave.nav-title-leave-active': {
+                      opacity: 0,
+                      transform: 'translateY(100%)',
+                      transition: '250ms'
+                    }
+                  } }),
                 _react2.default.createElement(
-                  'h1',
-                  { style: {
-                      margin: 0,
-                      display: 'inline-block',
-                      fontSize: this.state.navCondensed ? '24px' : '32px',
-                      lineHeight: this.state.navCondensed ? '32px' : '44px',
+                  _reactTransitionGroup.CSSTransitionGroup,
+                  {
+                    transitionName: 'nav-title',
+                    transitionEnterTimeout: 250,
+                    transitionLeaveTimeout: 250,
+                    style: {
+                      position: 'relative',
+                      display: 'flex',
+                      minHeight: this.state.navCondensed ? '32px' : '44px',
                       transition: '250ms'
                     } },
-                  'Contact Information'
+                  _react2.default.createElement(
+                    'h1',
+                    {
+                      key: this.state.title.replace(/[^\w\s]|_/g, "").replace(/\s+/g, ""),
+                      style: {
+                        margin: 0,
+                        display: 'inline-block',
+                        fontSize: this.state.navCondensed ? '24px' : '32px',
+                        lineHeight: this.state.navCondensed ? '32px' : '44px',
+                        transition: '250ms',
+                        whiteSpace: 'nowrap'
+                      } },
+                    this.state.title
+                  )
                 )
               ),
               _react2.default.createElement(
@@ -30487,9 +30543,9 @@ var NavBar = (0, _radium2.default)(_class = function (_React$Component) {
                     display: 'flex',
                     alignItems: 'center'
                   } },
-                _react2.default.createElement(_Button2.default, { value: 'Right Button', position: 'right' })
+                _react2.default.createElement(_Button2.default, { value: 'Right Button', onClick: this.handleTitleChange, position: 'right' })
               )
-            ) : ''
+            )
           )
         )
       );

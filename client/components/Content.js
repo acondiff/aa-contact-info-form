@@ -13,9 +13,9 @@ export default class Content extends React.Component {
     return(
       <div style={{
         margin: '30px auto',
-        padding: 15,
+        padding: '16px 32px',
         width: '100%',
-        maxWidth: '1200px'
+        maxWidth: '1264px'
       }}>
         <ContactInfo />
       </div>

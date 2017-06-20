@@ -238,7 +238,7 @@ export default class ContactInfo extends React.Component {
               onChange={this.handleInputChange} />
           </Column>
         </Row>
-        <Button type="danger" value="Delete section" onClick="handleCancelClick" />
+        <Button type="danger" value="Delete section" />
         <Button type="secondary" value="Add section" />
 
         <hr />
@@ -255,7 +255,7 @@ export default class ContactInfo extends React.Component {
         <div style={{
             textAlign: 'right'
         }}>
-          <Button type="secondary" size="large" value="Cancel" onClick="handleCancelClick" />
+          <Button type="secondary" size="large" value="Cancel" />
           <Button type="primary" size="large" submit={true} value="Submit" />
         </div>
         <pre style={{

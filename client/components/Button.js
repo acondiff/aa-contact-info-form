@@ -12,6 +12,7 @@ export default class Button extends React.Component {
         <input
           type={(this.props.submit) ? 'submit' : 'button'}
           value={this.props.value}
+          onClick={this.props.onClick}
           style={{
             display: 'inline-block',
             fontFamily: '"AmericanSans", sans-serif',

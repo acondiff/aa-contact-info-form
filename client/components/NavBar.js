@@ -18,6 +18,7 @@ export default class NavBar extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
+      title: 'Contact information',
       submenu: null,
       scrollTop: 0,
       navPosition: 'absolute',
@@ -26,6 +27,7 @@ export default class NavBar extends React.Component {
       navCondensed: false,
       scrollNoAnimate: true
     }
+    this.handleTitleChange = this.handleTitleChange.bind(this);
     this.showSubmenu = this.showSubmenu.bind(this);
     this.showSubmenuWrap = this.showSubmenuWrap.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
@@ -37,6 +39,13 @@ export default class NavBar extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleTitleChange() {
+    console.log('title changing');
+    this.setState({
+      title: (this.state.title === 'Contact information') ? 'Find a flight' : 'Contact information'
+    })
   }
 
   handleScroll(event) {
@@ -151,10 +160,10 @@ export default class NavBar extends React.Component {
     }
     const centerWrap = {
       margin: '0 auto',
-      padding: '0 15px',
+      padding: '0 32px',
       width: '100%',
       height: '100%',
-      maxWidth: '1200px'
+      maxWidth: '1264px'
     }
 
     return(
@@ -411,12 +420,12 @@ export default class NavBar extends React.Component {
           width: '100%',
           height: 'auto'
         }}>
-          <CSSTransitionGroup
-            transitionName="nav-heading"
-            transitionEnterTimeout={250}
-            transitionLeaveTimeout={250}
-            style={Object.assign(centerWrap, { display:'flex' })}>
-          {!this.showSubmenuWrap() ? (
+          <div
+            style={Object.assign({}, centerWrap, {
+              display:'flex',
+              opacity: this.showSubmenuWrap() ? 0 : 1,
+              transition: '250ms'
+            })}>
             <div style={{
                 display: 'flex',
                 flex: '1'
@@ -452,23 +461,64 @@ export default class NavBar extends React.Component {
                       transition: '.25s'
                     }} />
                 </div>
-                <h1 style={{
-                  margin: 0,
-                  display: 'inline-block',
-                  fontSize: this.state.navCondensed ? '24px' : '32px',
-                  lineHeight: this.state.navCondensed ? '32px' : '44px',
-                  transition: '250ms'
-                }}>Contact Information</h1>
+                <Style rules={{
+                    '.nav-title-enter': {
+                      opacity: 0,
+                      transform: 'translateY(-100%)',
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: 'auto'
+                    },
+                    '.nav-title-enter.nav-title-enter-active': {
+                      opacity: 1,
+                      transform: 'translateY(0)',
+                      transition: '250ms'
+                    },
+                    '.nav-title-leave': {
+                      opacity: 1,
+                      transform: 'translateY(0)',
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: 'auto'
+                    },
+                    '.nav-title-leave.nav-title-leave-active': {
+                      opacity: 0,
+                      transform: 'translateY(100%)',
+                      transition: '250ms'
+                    }
+                }} />
+                <CSSTransitionGroup
+                  transitionName="nav-title"
+                  transitionEnterTimeout={250}
+                  transitionLeaveTimeout={250}
+                  style={{
+                    position: 'relative',
+                    display: 'flex',
+                    minHeight: this.state.navCondensed ? '32px' : '44px',
+                    transition: '250ms'
+                  }}>
+                  <h1
+                    key={this.state.title.replace(/[^\w\s]|_/g, "").replace(/\s+/g, "")}
+                    style={{
+                      margin: 0,
+                      display: 'inline-block',
+                      fontSize: this.state.navCondensed ? '24px' : '32px',
+                      lineHeight: this.state.navCondensed ? '32px' : '44px',
+                      transition: '250ms',
+                      whiteSpace: 'nowrap'
+                  }}>{this.state.title}</h1>
+              </CSSTransitionGroup>
               </div>
               <div style={{
                 display: 'flex',
                 alignItems: 'center'
               }}>
-                <Button value="Right Button" position="right" />
+                <Button value="Right Button" onClick={this.handleTitleChange} position="right" />
               </div>
             </div>
-          ) : ''}
-          </CSSTransitionGroup>
+          </div>
         </div>
       </header>
     )

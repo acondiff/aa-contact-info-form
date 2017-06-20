@@ -49,26 +49,22 @@ input[type=text] {
 }
 
 
-.nav-submenu-enter,
-.nav-heading-enter {
+.nav-submenu-enter {
   opacity: 0.01;
   /*transform: translateY(-100%);*/
 }
 
-.nav-submenu-enter.nav-submenu-enter-active,
-.nav-heading-enter.nav-heading-enter-active {
+.nav-submenu-enter.nav-submenu-enter-active {
   opacity: 1;
   /*transform: translateY(0);*/
   transition: 250ms ease-in;
 }
 
-.nav-submenu-leave,
-.nav-heading-leave {
+.nav-submenu-leave {
   opacity: 1;
 }
 
-.nav-submenu-leave.nav-submenu-leave-active,
-.nav-heading-leave.nav-heading-leave-active {
+.nav-submenu-leave.nav-submenu-leave-active {
   opacity: 0.01;
   /*transform: translateY(100%);*/
   transition: 250ms ease-in;
